@@ -35,3 +35,16 @@ body {
         display: none;
     }
 }
+
+/* Custom Styles */
+.internal-content {
+    height: calc(100vh - 100px);
+}
+
+/* Página de login */
+#login-page .wrapper-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}

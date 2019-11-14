@@ -1,4 +1,5 @@
-﻿using ProjetoFinal.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using ProjetoFinal.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +19,7 @@ namespace ProjetoFinal.Services
         public List<Produto> FindAll()
         {
             // retorna todos os produtos ordenados por nome
-            return _context.Produto.OrderBy(d => d.Nome).ToList();
+            return _context.Produto.Include(p => p.Categoria).OrderBy(d => d.Nome).ToList();
         }
     }
 }

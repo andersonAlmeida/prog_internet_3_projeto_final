@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -7,6 +9,7 @@ namespace ProjetoFinal.Models
 {
     public class Produto
     {
+        [Key]
         public int Id { get; set; }
         public double Preco { get; set; }
         public string Nome { get; set; }
@@ -14,11 +17,15 @@ namespace ProjetoFinal.Models
         public double Desconto { get; set; }
         public int Estoque { get; set; }
 
-        public int CategoriaId { get; set; }
-        public ICollection<Categoria> Categoria { get; set; } = new List<Categoria>();
+        //public int? CategoriaId { get; set; }
 
-        public int MarcaId { get; set; }
-        public ICollection<Marca> Marca { get; set; } = new List<Marca>();
+        [ForeignKey("CategoriaId")]
+        public Categoria Categoria { get; set; }
+
+        //public int? MarcaId { get; set; }
+
+        [ForeignKey("MarcaId")]
+        public Marca Marca { get; set; }
 
         public List<ProdutoPedido> PP { get; set; }
     }

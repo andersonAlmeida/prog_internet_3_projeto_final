@@ -16,13 +16,7 @@ namespace ProjetoFinal.Controllers
         public AdministradoresController(ProjetoFinal0Context context)
         {
             _context = context;
-        }
-
-        // Login da página Administrativa
-        //public async Task<IActionResult> Login()
-        //{
-        //    return View(await _context.Administrador.ToListAsync());
-        //}
+        }        
 
         // GET: Administradores
         public async Task<IActionResult> Index()
@@ -153,6 +147,13 @@ namespace ProjetoFinal.Controllers
         private bool AdministradorExists(int id)
         {
             return _context.Administrador.Any(e => e.Id == id);
+        }
+
+        /* =========================== */
+        // Login da página Administrativa
+        public async Task<IActionResult> Login()
+        {
+            return View(await _context.Administrador.ToListAsync());
         }
     }
 }

@@ -15,7 +15,7 @@ namespace ProjetoFinal.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.11-servicing-32099")
+                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -44,11 +44,7 @@ namespace ProjetoFinal.Migrations
 
                     b.Property<string>("Nome");
 
-                    b.Property<int?>("ProdutoId");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("ProdutoId");
 
                     b.ToTable("Categoria");
                 });
@@ -90,11 +86,7 @@ namespace ProjetoFinal.Migrations
 
                     b.Property<string>("Nome");
 
-                    b.Property<int?>("ProdutoId");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("ProdutoId");
 
                     b.ToTable("Marca");
                 });
@@ -124,7 +116,7 @@ namespace ProjetoFinal.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("CategoriaId");
+                    b.Property<int?>("CategoriaId");
 
                     b.Property<double>("Desconto");
 
@@ -132,13 +124,17 @@ namespace ProjetoFinal.Migrations
 
                     b.Property<int>("Estoque");
 
-                    b.Property<int>("MarcaId");
+                    b.Property<int?>("MarcaId");
 
                     b.Property<string>("Nome");
 
                     b.Property<double>("Preco");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CategoriaId");
+
+                    b.HasIndex("MarcaId");
 
                     b.ToTable("Produto");
                 });
@@ -156,13 +152,6 @@ namespace ProjetoFinal.Migrations
                     b.ToTable("ProdutoPedido");
                 });
 
-            modelBuilder.Entity("ProjetoFinal.Models.Categoria", b =>
-                {
-                    b.HasOne("ProjetoFinal.Models.Produto")
-                        .WithMany("Categoria")
-                        .HasForeignKey("ProdutoId");
-                });
-
             modelBuilder.Entity("ProjetoFinal.Models.Cliente", b =>
                 {
                     b.HasOne("ProjetoFinal.Models.Pedido")
@@ -170,11 +159,15 @@ namespace ProjetoFinal.Migrations
                         .HasForeignKey("PedidoId");
                 });
 
-            modelBuilder.Entity("ProjetoFinal.Models.Marca", b =>
+            modelBuilder.Entity("ProjetoFinal.Models.Produto", b =>
                 {
-                    b.HasOne("ProjetoFinal.Models.Produto")
-                        .WithMany("Marca")
-                        .HasForeignKey("ProdutoId");
+                    b.HasOne("ProjetoFinal.Models.Categoria", "Categoria")
+                        .WithMany()
+                        .HasForeignKey("CategoriaId");
+
+                    b.HasOne("ProjetoFinal.Models.Marca", "Marca")
+                        .WithMany()
+                        .HasForeignKey("MarcaId");
                 });
 
             modelBuilder.Entity("ProjetoFinal.Models.ProdutoPedido", b =>

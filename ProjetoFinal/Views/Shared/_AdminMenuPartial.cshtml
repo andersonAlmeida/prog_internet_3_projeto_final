@@ -1,0 +1,41 @@
+﻿
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">ProjetoFinal</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li><a asp-area="" asp-controller="Home" asp-action="Index">Página inicial</a></li>
+                <li>
+                    <a href="javascript:;" id="adminMenu" data-toggle="dropdown">Administração</a>
+                    <ul class="dropdown-menu" aria-labelledby="adminMenu">
+                        <li><a asp-area="" asp-controller="Produtos" asp-action="Index">Produtos</a></li>
+                        <li><a asp-area="" asp-controller="Categorias" asp-action="Index">Categorias</a></li>
+                        <li><a asp-area="" asp-controller="Marcas" asp-action="Index">Marcas</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="javascript:;" id="adminMenu2" data-toggle="dropdown">Usuários</a>
+                    <ul class="dropdown-menu" aria-labelledby="adminMenu2">
+                        <li><a asp-area="" asp-controller="Administradores" asp-action="Index">Administradores</a></li>
+                        @*<li><a asp-area="" asp-controller="Clientes" asp-action="Index">Clientes</a></li>*@
+                    </ul>
+                </li>
+                <li><a asp-area="" asp-controller="Pedidos" asp-action="Index">Pedidos</a></li>
+                @*<li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>*@
+            </ul>
+        </div>
+    </div>
+</nav>

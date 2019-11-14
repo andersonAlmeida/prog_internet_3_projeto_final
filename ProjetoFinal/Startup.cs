@@ -61,9 +61,15 @@ namespace ProjetoFinal
 
             app.UseMvc(routes =>
             {
+                /* Rota para a página de Login do Admin */
+                routes.MapRoute("login", "cms/admin/login",
+                    defaults: new { controller = "Administradores", action = "Login" });
+
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Home}/{action=Index}/{id?}"
+                );
+                
             });
         }
     }
