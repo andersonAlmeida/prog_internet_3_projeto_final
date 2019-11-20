@@ -1,0 +1,48 @@
+﻿@model projeto_final.Models.Imagem
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Imagem</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Titulo)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Titulo)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Descricao)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Descricao)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Imagem_Thumb)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Imagem_Thumb)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Imagem_Normal)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Imagem_Normal)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Id_Produto)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Id_Produto)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
