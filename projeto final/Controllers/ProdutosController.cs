@@ -7,16 +7,20 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using projeto_final.Data;
 using projeto_final.Models;
+using projeto_final.Models.ViewModels;
+using projeto_final.Services;
 
 namespace projeto_final.Controllers
 {
     public class ProdutosController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly CategoriaService _categoriaService;
 
-        public ProdutosController(ApplicationDbContext context)
+        public ProdutosController(ApplicationDbContext context, CategoriaService categoriaService)
         {
             _context = context;
+            _categoriaService = categoriaService;
         }
 
         // GET: Produtos
@@ -46,7 +50,12 @@ namespace projeto_final.Controllers
         // GET: Produtos/Create
         public IActionResult Create()
         {
-            return View();
+            var categorias = _categoriaService.FindAll();
+            //Instância nosso ViewModel, que vai ter duas propriedades, a primeira é a lista de departamentos, que já temos.
+            var viewModel = new ProdutoFormViewModel { Categorias = categorias };
+            //Encaminha os dados para a view
+            //Agora na tela de cadastro, já vou poder acessar a lista de departamentos 
+            return View(viewModel);            
         }
 
         // POST: Produtos/Create
