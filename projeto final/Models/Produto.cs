@@ -18,13 +18,15 @@ namespace projeto_final.Models
         public int Estoque { get; set; }
 
         //[ForeignKey("CategoriaId")]
-        //public int CategoriaId { get; set; }
+        public int CategoriaId { get; set; }
 
+        //[ForeignKey("CategoriaId")]
         public Categoria Categoria { get; set; }
 
         //[ForeignKey("MarcaId")]
         //public int MarcaId { get; set; }
 
+        //[ForeignKey("MarcaId")]
         public Marca Marca { get; set; }
 
         public List<ProdutoPedido> PP { get; set; }

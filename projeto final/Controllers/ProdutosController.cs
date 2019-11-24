@@ -54,7 +54,7 @@ namespace projeto_final.Controllers
             List<Categoria> categorias = _categoriaService.FindAll();
             List<Marca> marcas = _marcaService.FindAll();
 
-            //Instância nosso ViewModel, que vai ter duas propriedades, a primeira é a lista de departamentos, que já temos.
+            //Instância nosso ViewModel
             var viewModel = new ProdutoFormViewModel {
                 Categorias = categorias,
                 Marcas = marcas
@@ -65,12 +65,9 @@ namespace projeto_final.Controllers
         }
 
         // POST: Produtos/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public IActionResult Create(ProdutoFormViewModel obj)
-        {
-            Produto produto = obj.Produto;
+        public IActionResult Create(Produto produto)
+        {          
             _produtoService.Insert(produto);
             return RedirectToAction(nameof(Index));            
         }

@@ -348,7 +348,7 @@ namespace projetofinal.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("CategoriaId");
+                    b.Property<int>("CategoriaId");
 
                     b.Property<double>("Desconto");
 
@@ -465,7 +465,8 @@ namespace projetofinal.Migrations
                 {
                     b.HasOne("projeto_final.Models.Categoria", "Categoria")
                         .WithMany()
-                        .HasForeignKey("CategoriaId");
+                        .HasForeignKey("CategoriaId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("projeto_final.Models.Marca", "Marca")
                         .WithMany()

@@ -10,8 +10,8 @@ using projeto_final.Data;
 namespace projetofinal.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20191124030435_final003")]
-    partial class final003
+    [Migration("20191124184152_final010")]
+    partial class final010
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -350,7 +350,7 @@ namespace projetofinal.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("CategoriaId");
+                    b.Property<int>("CategoriaId");
 
                     b.Property<double>("Desconto");
 
@@ -467,7 +467,8 @@ namespace projetofinal.Migrations
                 {
                     b.HasOne("projeto_final.Models.Categoria", "Categoria")
                         .WithMany()
-                        .HasForeignKey("CategoriaId");
+                        .HasForeignKey("CategoriaId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("projeto_final.Models.Marca", "Marca")
                         .WithMany()
