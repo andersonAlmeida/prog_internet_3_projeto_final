@@ -2,8 +2,10 @@
 
 @{
     ViewData["Title"] = "Create";
+    // cria as listas dos selects
+    var listCategorias = new SelectList(Model.Categorias, "Id", "Nome");
+    var listMarcas = new SelectList(Model.Marcas, "Id", "Nome");
 }
-
 <h2>Create</h2>
 
 <h4>Produto</h4>
@@ -19,11 +21,21 @@
             </div>
             <div class="form-group">
                 <label asp-for="Produto.Categoria" class="control-label"></label>
-                <select asp-for="Produto.Categoria" 
-                    asp-items="@(new SelectList(Model.Categorias,"Id", "Nome"))" 
-                    class="form-control">
+                <select asp-for="Produto.Categoria"
+                        asp-items="@(listCategorias)"
+                        class="form-control">
+                    <option value="">Selecione</option>
                 </select>
                 <span asp-validation-for="Produto.Categoria" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Produto.Marca" class="control-label"></label>
+                <select asp-for="Produto.Marca"
+                        asp-items="@(listMarcas)"
+                        class="form-control">
+                    <option value="">Selecione</option>
+                </select>
+                <span asp-validation-for="Produto.Marca" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Produto.Preco" class="control-label"></label>
@@ -32,7 +44,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Produto.Descricao" class="control-label"></label>
-                <input asp-for="Produto.Descricao" class="form-control" />
+                <textarea asp-for="Produto.Descricao" class="form-control"></textarea>
                 <span asp-validation-for="Produto.Descricao" class="text-danger"></span>
             </div>
             <div class="form-group">

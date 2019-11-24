@@ -9,5 +9,20 @@ namespace projeto_final.Models
     {
         public int Id { get; set; }
         public string Nome { get; set; }
+
+        public Categoria()
+        {
+        }
+
+        public Categoria(string nome)
+        {
+            Nome = nome;
+        }
+
+        public Categoria(int id, string nome)
+        {
+            Id = id;
+            Nome = nome;
+        }
     }
 }

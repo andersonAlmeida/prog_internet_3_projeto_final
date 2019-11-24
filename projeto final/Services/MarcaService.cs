@@ -16,10 +16,10 @@ namespace projeto_final.Services
             _context = context;
         }
 
-        public List<Categoria> FindAll()
+        public List<Marca> FindAll()
         {
             // retorna todos os produtos ordenados por nome
-            return _context.Categoria.OrderBy(d => d.Nome).ToList();
+            return _context.Marca.OrderBy(d => d.Nome).ToList();
         }
     }
 }

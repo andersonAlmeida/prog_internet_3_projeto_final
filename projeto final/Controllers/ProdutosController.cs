@@ -16,29 +16,30 @@ namespace projeto_final.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly CategoriaService _categoriaService;
+        private readonly MarcaService _marcaService;
+        private readonly ProdutoService _produtoService;
 
-        public ProdutosController(ApplicationDbContext context, CategoriaService categoriaService)
+        public ProdutosController(ApplicationDbContext context, CategoriaService categoriaService, MarcaService marcaService, ProdutoService produtoService)
         {
             _context = context;
             _categoriaService = categoriaService;
+            _marcaService = marcaService;
+            _produtoService = produtoService;
         }
 
         // GET: Produtos
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            return View(await _context.Produto.ToListAsync());
+            //retorna uma lista
+            var list = _produtoService.FindAll();
+            return View(list);
         }
 
         // GET: Produtos/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public IActionResult Details(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            var produto = _produtoService.FindById(id);
 
-            var produto = await _context.Produto
-                .FirstOrDefaultAsync(m => m.Id == id);
             if (produto == null)
             {
                 return NotFound();
@@ -50,9 +51,14 @@ namespace projeto_final.Controllers
         // GET: Produtos/Create
         public IActionResult Create()
         {
-            var categorias = _categoriaService.FindAll();
+            List<Categoria> categorias = _categoriaService.FindAll();
+            List<Marca> marcas = _marcaService.FindAll();
+
             //Instância nosso ViewModel, que vai ter duas propriedades, a primeira é a lista de departamentos, que já temos.
-            var viewModel = new ProdutoFormViewModel { Categorias = categorias };
+            var viewModel = new ProdutoFormViewModel {
+                Categorias = categorias,
+                Marcas = marcas
+            };
             //Encaminha os dados para a view
             //Agora na tela de cadastro, já vou poder acessar a lista de departamentos 
             return View(viewModel);            
@@ -62,32 +68,42 @@ namespace projeto_final.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Preco,Nome,Descricao,Desconto,Estoque")] Produto produto)
+        public IActionResult Create(ProdutoFormViewModel obj)
         {
-            if (ModelState.IsValid)
-            {
-                _context.Add(produto);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(produto);
+            Produto produto = obj.Produto;
+            _produtoService.Insert(produto);
+            return RedirectToAction(nameof(Index));            
         }
 
         // GET: Produtos/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public IActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var produto = await _context.Produto.FindAsync(id);
-            if (produto == null)
+            var obj = _produtoService.FindById(id.Value);
+
+            /*Verificar se o id é válido e retornou algum registro.
+            Se nenhum vendedor for localizado com esse id, será retornado 
+            o valor null do método FindById(int id)*/
+            if (obj == null)
             {
                 return NotFound();
             }
-            return View(produto);
+                        
+            List<Categoria> categorias = _categoriaService.FindAll();
+            List<Marca> marcas = _marcaService.FindAll();
+
+            var viewModel = new ProdutoFormViewModel
+            {
+                Produto = obj,
+                Categorias = categorias,
+                Marcas = marcas
+            };
+
+            return View(viewModel);
         }
 
         // POST: Produtos/Edit/5
@@ -95,7 +111,7 @@ namespace projeto_final.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Preco,Nome,Descricao,Desconto,Estoque")] Produto produto)
+        public IActionResult Edit(int id, [Bind("Id,Preco,Nome,Descricao,Desconto,Estoque,Categoria,Marca")] Produto produto)
         {
             if (id != produto.Id)
             {
@@ -106,8 +122,7 @@ namespace projeto_final.Controllers
             {
                 try
                 {
-                    _context.Update(produto);
-                    await _context.SaveChangesAsync();
+                    _produtoService.Update(produto);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
