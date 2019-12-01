@@ -34,7 +34,7 @@ namespace projeto_final.Controllers
             }
 
             var marca = await _context.Marca
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.MarcaId == id);
             if (marca == null)
             {
                 return NotFound();
@@ -88,7 +88,7 @@ namespace projeto_final.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Nome")] Marca marca)
         {
-            if (id != marca.Id)
+            if (id != marca.MarcaId)
             {
                 return NotFound();
             }
@@ -102,7 +102,7 @@ namespace projeto_final.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!MarcaExists(marca.Id))
+                    if (!MarcaExists(marca.MarcaId))
                     {
                         return NotFound();
                     }
@@ -125,7 +125,7 @@ namespace projeto_final.Controllers
             }
 
             var marca = await _context.Marca
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.MarcaId == id);
             if (marca == null)
             {
                 return NotFound();
@@ -147,7 +147,7 @@ namespace projeto_final.Controllers
 
         private bool MarcaExists(int id)
         {
-            return _context.Marca.Any(e => e.Id == id);
+            return _context.Marca.Any(e => e.MarcaId == id);
         }
     }
 }

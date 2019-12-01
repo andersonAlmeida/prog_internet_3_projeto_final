@@ -8,15 +8,13 @@ using System.Threading.Tasks;
 namespace projeto_final.Models
 {
     public class Marca
-    {
-        [Key]
-        public int Id { get; set; }
+    {        
+        public int MarcaId { get; set; }
 
         [MaxLength(30, ErrorMessage = "Limite máximo de 30 caracteres.")]
         public string Nome { get; set; }
 
-        [ForeignKey("MarcaId")]
-        public virtual Produto Produto { get; set; }
+        public ICollection<Produto> Produtos { get; set; }
 
         public Marca()
         {
@@ -29,7 +27,7 @@ namespace projeto_final.Models
 
         public Marca(int id, string nome)
         {
-            Id = id;
+            MarcaId = id;
             Nome = nome;
         }
     }

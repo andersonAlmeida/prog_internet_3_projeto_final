@@ -34,7 +34,7 @@ namespace projeto_final.Controllers
             }
 
             var categoria = await _context.Categoria
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.CategoriaId == id);
             if (categoria == null)
             {
                 return NotFound();
@@ -88,7 +88,7 @@ namespace projeto_final.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Nome")] Categoria categoria)
         {
-            if (id != categoria.Id)
+            if (id != categoria.CategoriaId)
             {
                 return NotFound();
             }
@@ -102,7 +102,7 @@ namespace projeto_final.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CategoriaExists(categoria.Id))
+                    if (!CategoriaExists(categoria.CategoriaId))
                     {
                         return NotFound();
                     }
@@ -125,7 +125,7 @@ namespace projeto_final.Controllers
             }
 
             var categoria = await _context.Categoria
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.CategoriaId == id);
             if (categoria == null)
             {
                 return NotFound();
@@ -147,7 +147,7 @@ namespace projeto_final.Controllers
 
         private bool CategoriaExists(int id)
         {
-            return _context.Categoria.Any(e => e.Id == id);
+            return _context.Categoria.Any(e => e.CategoriaId == id);
         }
     }
 }

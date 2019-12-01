@@ -203,20 +203,14 @@ namespace projetofinal.Migrations
 
             modelBuilder.Entity("projeto_final.Models.Categoria", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("CategoriaId")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("CategoriaId");
 
                     b.Property<string>("Nome")
                         .HasMaxLength(30);
 
-                    b.HasKey("Id");
-
-                    b.HasIndex("CategoriaId")
-                        .IsUnique()
-                        .HasFilter("[CategoriaId] IS NOT NULL");
+                    b.HasKey("CategoriaId");
 
                     b.ToTable("Categoria");
                 });
@@ -319,20 +313,14 @@ namespace projetofinal.Migrations
 
             modelBuilder.Entity("projeto_final.Models.Marca", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("MarcaId")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("MarcaId");
 
                     b.Property<string>("Nome")
                         .HasMaxLength(30);
 
-                    b.HasKey("Id");
-
-                    b.HasIndex("MarcaId")
-                        .IsUnique()
-                        .HasFilter("[MarcaId] IS NOT NULL");
+                    b.HasKey("MarcaId");
 
                     b.ToTable("Marca");
                 });
@@ -358,9 +346,7 @@ namespace projetofinal.Migrations
 
             modelBuilder.Entity("projeto_final.Models.Produto", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<int>("Id");
 
                     b.Property<int>("CategoriaId");
 
@@ -379,6 +365,10 @@ namespace projetofinal.Migrations
                     b.Property<double>("Preco");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CategoriaId");
+
+                    b.HasIndex("MarcaId");
 
                     b.ToTable("Produto");
                 });
@@ -466,13 +456,6 @@ namespace projetofinal.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("projeto_final.Models.Categoria", b =>
-                {
-                    b.HasOne("projeto_final.Models.Produto", "Produto")
-                        .WithOne("Categoria")
-                        .HasForeignKey("projeto_final.Models.Categoria", "CategoriaId");
-                });
-
             modelBuilder.Entity("projeto_final.Models.Cliente", b =>
                 {
                     b.HasOne("projeto_final.Models.Pedido")
@@ -480,11 +463,17 @@ namespace projetofinal.Migrations
                         .HasForeignKey("PedidoId");
                 });
 
-            modelBuilder.Entity("projeto_final.Models.Marca", b =>
+            modelBuilder.Entity("projeto_final.Models.Produto", b =>
                 {
-                    b.HasOne("projeto_final.Models.Produto", "Produto")
-                        .WithOne("Marca")
-                        .HasForeignKey("projeto_final.Models.Marca", "MarcaId");
+                    b.HasOne("projeto_final.Models.Categoria", "Categoria")
+                        .WithMany("Produtos")
+                        .HasForeignKey("CategoriaId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("projeto_final.Models.Marca", "Marca")
+                        .WithMany("Produtos")
+                        .HasForeignKey("MarcaId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("projeto_final.Models.ProdutoPedido", b =>

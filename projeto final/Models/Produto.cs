@@ -9,7 +9,7 @@ namespace projeto_final.Models
 {
     public class Produto
     {
-        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
 
         [Range(1, 999999)] // adiciona um valor minimo de 1 e maximo de 999999

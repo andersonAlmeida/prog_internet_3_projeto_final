@@ -46,7 +46,7 @@ namespace projeto_final.Data
             // Adiciona no banco
             _context.Categoria.AddRange(c1, c2, c3, c4, c5);
             _context.Marca.AddRange(m1, m2, m3, m4, m5);
-            _context.Produto.AddRange(p1, p2, p3);
+            //_context.Produto.AddRange(p1, p2, p3);
 
             //Método que efetiva o registro/gravação no banco de dados
             _context.SaveChanges();

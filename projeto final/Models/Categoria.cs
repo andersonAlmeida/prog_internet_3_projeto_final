@@ -9,14 +9,12 @@ namespace projeto_final.Models
 {
     public class Categoria
     {
-        [Key]
-        public int Id { get; set; }
+        public int CategoriaId { get; set; }
 
         [MaxLength(30, ErrorMessage = "Limite máximo de 30 caracteres.")]
         public string Nome { get; set; }
-
-        [ForeignKey("CategoriaId")]
-        public virtual Produto Produto { get; set; }
+                
+        public ICollection<Produto> Produtos { get; set; }
 
         public Categoria()
         {
@@ -29,7 +27,7 @@ namespace projeto_final.Models
 
         public Categoria(int id, string nome)
         {
-            Id = id;
+            CategoriaId = id;
             Nome = nome;
         }
     }
