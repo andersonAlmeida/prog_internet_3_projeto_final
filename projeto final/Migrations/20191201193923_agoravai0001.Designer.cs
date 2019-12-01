@@ -10,8 +10,8 @@ using projeto_final.Data;
 namespace projetofinal.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20191124184152_final010")]
-    partial class final010
+    [Migration("20191201193923_agoravai0001")]
+    partial class agoravai0001
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -209,9 +209,16 @@ namespace projetofinal.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Nome");
+                    b.Property<int?>("CategoriaId");
+
+                    b.Property<string>("Nome")
+                        .HasMaxLength(30);
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CategoriaId")
+                        .IsUnique()
+                        .HasFilter("[CategoriaId] IS NOT NULL");
 
                     b.ToTable("Categoria");
                 });
@@ -318,9 +325,16 @@ namespace projetofinal.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Nome");
+                    b.Property<int?>("MarcaId");
+
+                    b.Property<string>("Nome")
+                        .HasMaxLength(30);
 
                     b.HasKey("Id");
+
+                    b.HasIndex("MarcaId")
+                        .IsUnique()
+                        .HasFilter("[MarcaId] IS NOT NULL");
 
                     b.ToTable("Marca");
                 });
@@ -354,21 +368,19 @@ namespace projetofinal.Migrations
 
                     b.Property<double>("Desconto");
 
-                    b.Property<string>("Descricao");
+                    b.Property<string>("Descricao")
+                        .HasMaxLength(500);
 
                     b.Property<int>("Estoque");
 
-                    b.Property<int?>("MarcaId");
+                    b.Property<int>("MarcaId");
 
-                    b.Property<string>("Nome");
+                    b.Property<string>("Nome")
+                        .HasMaxLength(50);
 
                     b.Property<double>("Preco");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CategoriaId");
-
-                    b.HasIndex("MarcaId");
 
                     b.ToTable("Produto");
                 });
@@ -456,6 +468,13 @@ namespace projetofinal.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("projeto_final.Models.Categoria", b =>
+                {
+                    b.HasOne("projeto_final.Models.Produto", "Produto")
+                        .WithOne("Categoria")
+                        .HasForeignKey("projeto_final.Models.Categoria", "CategoriaId");
+                });
+
             modelBuilder.Entity("projeto_final.Models.Cliente", b =>
                 {
                     b.HasOne("projeto_final.Models.Pedido")
@@ -463,16 +482,11 @@ namespace projetofinal.Migrations
                         .HasForeignKey("PedidoId");
                 });
 
-            modelBuilder.Entity("projeto_final.Models.Produto", b =>
+            modelBuilder.Entity("projeto_final.Models.Marca", b =>
                 {
-                    b.HasOne("projeto_final.Models.Categoria", "Categoria")
-                        .WithMany()
-                        .HasForeignKey("CategoriaId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("projeto_final.Models.Marca", "Marca")
-                        .WithMany()
-                        .HasForeignKey("MarcaId");
+                    b.HasOne("projeto_final.Models.Produto", "Produto")
+                        .WithOne("Marca")
+                        .HasForeignKey("projeto_final.Models.Marca", "MarcaId");
                 });
 
             modelBuilder.Entity("projeto_final.Models.ProdutoPedido", b =>

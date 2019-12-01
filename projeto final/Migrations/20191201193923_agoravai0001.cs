@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace projetofinal.Migrations
 {
-    public partial class final010 : Migration
+    public partial class agoravai0001 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -63,19 +63,6 @@ namespace projetofinal.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Categoria",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Nome = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Categoria", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Endereco",
                 columns: table => new
                 {
@@ -129,19 +116,6 @@ namespace projetofinal.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Marca",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Nome = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Marca", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Pedido",
                 columns: table => new
                 {
@@ -155,6 +129,25 @@ namespace projetofinal.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Pedido", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Produto",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Preco = table.Column<double>(nullable: false),
+                    Nome = table.Column<string>(maxLength: 50, nullable: true),
+                    Descricao = table.Column<string>(maxLength: 500, nullable: true),
+                    Desconto = table.Column<double>(nullable: false),
+                    Estoque = table.Column<int>(nullable: false),
+                    CategoriaId = table.Column<int>(nullable: false),
+                    MarcaId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Produto", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -280,37 +273,6 @@ namespace projetofinal.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Produto",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Preco = table.Column<double>(nullable: false),
-                    Nome = table.Column<string>(nullable: true),
-                    Descricao = table.Column<string>(nullable: true),
-                    Desconto = table.Column<double>(nullable: false),
-                    Estoque = table.Column<int>(nullable: false),
-                    CategoriaId = table.Column<int>(nullable: false),
-                    MarcaId = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Produto", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Produto_Categoria_CategoriaId",
-                        column: x => x.CategoriaId,
-                        principalTable: "Categoria",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Produto_Marca_MarcaId",
-                        column: x => x.MarcaId,
-                        principalTable: "Marca",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Cliente",
                 columns: table => new
                 {
@@ -332,6 +294,46 @@ namespace projetofinal.Migrations
                         name: "FK_Cliente_Pedido_PedidoId",
                         column: x => x.PedidoId,
                         principalTable: "Pedido",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Categoria",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Nome = table.Column<string>(maxLength: 30, nullable: true),
+                    CategoriaId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Categoria", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Categoria_Produto_CategoriaId",
+                        column: x => x.CategoriaId,
+                        principalTable: "Produto",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Marca",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Nome = table.Column<string>(maxLength: 30, nullable: true),
+                    MarcaId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Marca", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Marca_Produto_MarcaId",
+                        column: x => x.MarcaId,
+                        principalTable: "Produto",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -402,19 +404,23 @@ namespace projetofinal.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Categoria_CategoriaId",
+                table: "Categoria",
+                column: "CategoriaId",
+                unique: true,
+                filter: "[CategoriaId] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Cliente_PedidoId",
                 table: "Cliente",
                 column: "PedidoId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Produto_CategoriaId",
-                table: "Produto",
-                column: "CategoriaId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Produto_MarcaId",
-                table: "Produto",
-                column: "MarcaId");
+                name: "IX_Marca_MarcaId",
+                table: "Marca",
+                column: "MarcaId",
+                unique: true,
+                filter: "[MarcaId] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ProdutoPedido_PedidoId",
@@ -448,6 +454,9 @@ namespace projetofinal.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Categoria");
+
+            migrationBuilder.DropTable(
                 name: "Cliente");
 
             migrationBuilder.DropTable(
@@ -458,6 +467,9 @@ namespace projetofinal.Migrations
 
             migrationBuilder.DropTable(
                 name: "Imagem");
+
+            migrationBuilder.DropTable(
+                name: "Marca");
 
             migrationBuilder.DropTable(
                 name: "ProdutoPedido");
@@ -476,12 +488,6 @@ namespace projetofinal.Migrations
 
             migrationBuilder.DropTable(
                 name: "Produto");
-
-            migrationBuilder.DropTable(
-                name: "Categoria");
-
-            migrationBuilder.DropTable(
-                name: "Marca");
         }
     }
 }

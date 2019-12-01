@@ -93,7 +93,7 @@ namespace projeto_final.Controllers
             List<Categoria> categorias = _categoriaService.FindAll();
             List<Marca> marcas = _marcaService.FindAll();
 
-            var viewModel = new ProdutoFormViewModel
+            ProdutoFormViewModel viewModel = new ProdutoFormViewModel
             {
                 Produto = obj,
                 Categorias = categorias,
