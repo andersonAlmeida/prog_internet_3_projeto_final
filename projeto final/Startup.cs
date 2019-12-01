@@ -14,6 +14,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using projeto_final.Models;
 using projeto_final.Services;
+using System.Globalization;
 
 namespace projeto_final
 {
@@ -68,6 +69,15 @@ namespace projeto_final
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
+
+            // Seta a formatação de moedas para o formato brasileiro
+            var cultureInfo = new CultureInfo("pt-BR");
+            System.Globalization.CultureInfo customCulture = new CultureInfo("pt-BR");
+            // Troca o separador decimal padrão para o .
+            customCulture.NumberFormat.NumberDecimalSeparator = ".";
+
+            CultureInfo.DefaultThreadCurrentCulture = customCulture;
+            CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
