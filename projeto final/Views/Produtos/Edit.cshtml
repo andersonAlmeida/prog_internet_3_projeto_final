@@ -5,8 +5,8 @@
     ViewData["Title"] = "Edit";
 
     // cria as listas dos selects
-    var listCategorias = new SelectList(Model.Categorias, "Id", "Nome");
-    var listMarcas = new SelectList(Model.Marcas, "Id", "Nome");
+    var listCategorias = new SelectList(Model.Categorias, "CategoriaId", "Nome");
+    var listMarcas = new SelectList(Model.Marcas, "MarcaId", "Nome");
 }
 
 <h2>Edit</h2>

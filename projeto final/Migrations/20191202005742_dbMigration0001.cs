@@ -120,7 +120,7 @@ namespace projetofinal.Migrations
                     Titulo = table.Column<string>(nullable: true),
                     Descricao = table.Column<string>(nullable: true),
                     Imagem_Thumb = table.Column<string>(nullable: true),
-                    Imagem_Normal = table.Column<string>(nullable: true),
+                    Imagem_Normal = table.Column<string>(nullable: false),
                     Id_Produto = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -290,7 +290,9 @@ namespace projetofinal.Migrations
                     Desconto = table.Column<double>(nullable: false),
                     Estoque = table.Column<int>(nullable: false),
                     CategoriaId = table.Column<int>(nullable: false),
-                    MarcaId = table.Column<int>(nullable: false)
+                    MarcaId = table.Column<int>(nullable: false),
+                    Thumb = table.Column<string>(nullable: false),
+                    ImagemId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -301,6 +303,12 @@ namespace projetofinal.Migrations
                         principalTable: "Categoria",
                         principalColumn: "CategoriaId",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Produto_Imagem_ImagemId",
+                        column: x => x.ImagemId,
+                        principalTable: "Imagem",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Produto_Marca_MarcaId",
                         column: x => x.MarcaId,
@@ -411,6 +419,11 @@ namespace projetofinal.Migrations
                 column: "CategoriaId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Produto_ImagemId",
+                table: "Produto",
+                column: "ImagemId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Produto_MarcaId",
                 table: "Produto",
                 column: "MarcaId");
@@ -456,9 +469,6 @@ namespace projetofinal.Migrations
                 name: "Fornecedor");
 
             migrationBuilder.DropTable(
-                name: "Imagem");
-
-            migrationBuilder.DropTable(
                 name: "ProdutoPedido");
 
             migrationBuilder.DropTable(
@@ -478,6 +488,9 @@ namespace projetofinal.Migrations
 
             migrationBuilder.DropTable(
                 name: "Categoria");
+
+            migrationBuilder.DropTable(
+                name: "Imagem");
 
             migrationBuilder.DropTable(
                 name: "Marca");

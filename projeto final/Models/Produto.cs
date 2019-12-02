@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -34,6 +35,10 @@ namespace projeto_final.Models
 
         public int MarcaId { get; set; }
         public virtual Marca Marca { get; set; }
+        
+        [Required(ErrorMessage = "Selecione uma imagem.")]
+        [DataType(DataType.Upload)]
+        public string Thumb { get; set; }
 
         public List<ProdutoPedido> PP { get; set; }
 
@@ -41,33 +46,8 @@ namespace projeto_final.Models
         {
         }
 
-        public Produto(double preco, string nome, string descricao, double desconto, int estoque, Categoria categoria, Marca marca, List<ProdutoPedido> pP)
+        public Produto(double preco, string nome, string descricao, double desconto, int estoque, int categoriaId, Categoria categoria, int marcaId, Marca marca, string imagem, List<ProdutoPedido> pP)
         {
-            Preco = preco;
-            Nome = nome;
-            Descricao = descricao;
-            Desconto = desconto;
-            Estoque = estoque;
-            Categoria = categoria;
-            Marca = marca;
-            PP = pP;
-        }
-
-        public Produto(int id, double preco, string nome, string descricao, double desconto, int estoque, Categoria categoria, Marca marca, List<ProdutoPedido> pP)
-        {
-            Id = id;
-            Preco = preco;
-            Nome = nome;
-            Descricao = descricao;
-            Desconto = desconto;
-            Estoque = estoque;
-            Categoria = categoria;
-            Marca = marca;
-            PP = pP;
-        }
-
-        public Produto(double preco, string nome, string descricao, double desconto, int estoque, int categoriaId, Categoria categoria, int marcaId, Marca marca, List<ProdutoPedido> pP)
-        {            
             Preco = preco;
             Nome = nome;
             Descricao = descricao;
@@ -77,21 +57,7 @@ namespace projeto_final.Models
             Categoria = categoria;
             MarcaId = marcaId;
             Marca = marca;
-            PP = pP;
-        }
-
-        public Produto(int id, double preco, string nome, string descricao, double desconto, int estoque, int categoriaId, Categoria categoria, int marcaId, Marca marca, List<ProdutoPedido> pP)
-        {
-            Id = id;
-            Preco = preco;
-            Nome = nome;
-            Descricao = descricao;
-            Desconto = desconto;
-            Estoque = estoque;
-            CategoriaId = categoriaId;
-            Categoria = categoria;
-            MarcaId = marcaId;
-            Marca = marca;
+            Thumb = imagem;
             PP = pP;
         }
     }

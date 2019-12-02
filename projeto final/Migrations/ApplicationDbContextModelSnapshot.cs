@@ -300,7 +300,8 @@ namespace projetofinal.Migrations
 
                     b.Property<int>("Id_Produto");
 
-                    b.Property<string>("Imagem_Normal");
+                    b.Property<string>("Imagem_Normal")
+                        .IsRequired();
 
                     b.Property<string>("Imagem_Thumb");
 
@@ -357,6 +358,8 @@ namespace projetofinal.Migrations
 
                     b.Property<int>("Estoque");
 
+                    b.Property<int?>("ImagemId");
+
                     b.Property<int>("MarcaId");
 
                     b.Property<string>("Nome")
@@ -364,9 +367,14 @@ namespace projetofinal.Migrations
 
                     b.Property<double>("Preco");
 
+                    b.Property<string>("Thumb")
+                        .IsRequired();
+
                     b.HasKey("Id");
 
                     b.HasIndex("CategoriaId");
+
+                    b.HasIndex("ImagemId");
 
                     b.HasIndex("MarcaId");
 
@@ -469,6 +477,10 @@ namespace projetofinal.Migrations
                         .WithMany("Produtos")
                         .HasForeignKey("CategoriaId")
                         .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("projeto_final.Models.Imagem")
+                        .WithMany("Produtos")
+                        .HasForeignKey("ImagemId");
 
                     b.HasOne("projeto_final.Models.Marca", "Marca")
                         .WithMany("Produtos")
