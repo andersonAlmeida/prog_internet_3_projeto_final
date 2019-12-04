@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -12,15 +15,18 @@ using projeto_final.Services;
 
 namespace projeto_final.Controllers
 {
+    [Authorize]
     public class ProdutosController : Controller
     {
         private readonly ApplicationDbContext _context;
         private readonly CategoriaService _categoriaService;
         private readonly MarcaService _marcaService;
-        private readonly ProdutoService _produtoService;
+        private readonly ProdutoService _produtoService;        
 
-        public ProdutosController(ApplicationDbContext context, CategoriaService categoriaService, MarcaService marcaService, ProdutoService produtoService)
+        public ProdutosController(ApplicationDbContext context, CategoriaService categoriaService, MarcaService marcaService, ProdutoService produtoService, IHttpContextAccessor httpContextAccessor)
         {
+            var userId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+
             _context = context;
             _categoriaService = categoriaService;
             _marcaService = marcaService;
@@ -108,9 +114,9 @@ namespace projeto_final.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, [Bind("Id,Preco,Nome,Descricao,Desconto,Estoque,Categoria,Marca")] Produto produto)
+        public IActionResult Edit(int id, ProdutoFormViewModel viewModel)
         {
-            if (id != produto.Id)
+            if (id != viewModel.Produto.Id)
             {
                 return NotFound();
             }
@@ -119,11 +125,11 @@ namespace projeto_final.Controllers
             {
                 try
                 {
-                    _produtoService.Update(produto);
+                    _produtoService.Update(viewModel.Produto);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ProdutoExists(produto.Id))
+                    if (!ProdutoExists(viewModel.Produto.Id))
                     {
                         return NotFound();
                     }
@@ -134,7 +140,7 @@ namespace projeto_final.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(produto);
+            return View(viewModel.Produto);
         }
 
         // GET: Produtos/Delete/5

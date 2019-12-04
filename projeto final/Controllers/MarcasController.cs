@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,7 @@ using projeto_final.Models;
 
 namespace projeto_final.Controllers
 {
+    [Authorize]
     public class MarcasController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -86,7 +88,7 @@ namespace projeto_final.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nome")] Marca marca)
+        public async Task<IActionResult> Edit(int id, Marca marca)
         {
             if (id != marca.MarcaId)
             {
