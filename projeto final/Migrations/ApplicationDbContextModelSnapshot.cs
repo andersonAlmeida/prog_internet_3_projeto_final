@@ -300,8 +300,7 @@ namespace projetofinal.Migrations
 
                     b.Property<int>("Id_Produto");
 
-                    b.Property<string>("Imagem_Normal")
-                        .IsRequired();
+                    b.Property<string>("Imagem_Normal");
 
                     b.Property<string>("Imagem_Thumb");
 
@@ -347,7 +346,9 @@ namespace projetofinal.Migrations
 
             modelBuilder.Entity("projeto_final.Models.Produto", b =>
                 {
-                    b.Property<int>("Id");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("CategoriaId");
 
@@ -366,9 +367,6 @@ namespace projetofinal.Migrations
                         .HasMaxLength(50);
 
                     b.Property<double>("Preco");
-
-                    b.Property<string>("Thumb")
-                        .IsRequired();
 
                     b.HasKey("Id");
 

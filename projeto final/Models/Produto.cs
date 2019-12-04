@@ -10,7 +10,7 @@ namespace projeto_final.Models
 {
     public class Produto
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        //[DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
 
         [Range(1, 999999)] // adiciona um valor minimo de 1 e maximo de 999999
@@ -21,6 +21,7 @@ namespace projeto_final.Models
         [MaxLength(50, ErrorMessage = "Limite máximo de 50 caracteres")]
         public string Nome { get; set; }
 
+        [Display(Name = "Descrição")]
         [MaxLength(500, ErrorMessage = "Limite máximo de 500 caracteres")]
         public string Descricao { get; set; }
 
@@ -30,15 +31,19 @@ namespace projeto_final.Models
         [Range(0, 9999999)] // seta um limite
         public int Estoque { get; set; }
 
+        [Display(Name = "Categoria")]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int CategoriaId { get; set; }        
         public virtual Categoria Categoria { get; set; }
 
+        [Display(Name = "Marca")]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int MarcaId { get; set; }
         public virtual Marca Marca { get; set; }
         
-        [Required(ErrorMessage = "Selecione uma imagem.")]
-        [DataType(DataType.Upload)]
-        public string Thumb { get; set; }
+        //[Required(ErrorMessage = "Selecione uma imagem.")]
+        //[DataType(DataType.Upload)]
+        //public string Thumb { get; set; }
 
         public List<ProdutoPedido> PP { get; set; }
 
@@ -46,7 +51,7 @@ namespace projeto_final.Models
         {
         }
 
-        public Produto(double preco, string nome, string descricao, double desconto, int estoque, int categoriaId, Categoria categoria, int marcaId, Marca marca, string imagem, List<ProdutoPedido> pP)
+        public Produto(double preco, string nome, string descricao, double desconto, int estoque, int categoriaId, Categoria categoria, int marcaId, Marca marca, /*string imagem,*/ List<ProdutoPedido> pP)
         {
             Preco = preco;
             Nome = nome;
@@ -57,7 +62,7 @@ namespace projeto_final.Models
             Categoria = categoria;
             MarcaId = marcaId;
             Marca = marca;
-            Thumb = imagem;
+            //Thumb = imagem;
             PP = pP;
         }
     }

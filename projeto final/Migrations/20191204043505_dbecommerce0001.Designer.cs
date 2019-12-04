@@ -10,8 +10,8 @@ using projeto_final.Data;
 namespace projetofinal.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20191202005742_dbMigration0001")]
-    partial class dbMigration0001
+    [Migration("20191204043505_dbecommerce0001")]
+    partial class dbecommerce0001
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -302,8 +302,7 @@ namespace projetofinal.Migrations
 
                     b.Property<int>("Id_Produto");
 
-                    b.Property<string>("Imagem_Normal")
-                        .IsRequired();
+                    b.Property<string>("Imagem_Normal");
 
                     b.Property<string>("Imagem_Thumb");
 
@@ -349,7 +348,9 @@ namespace projetofinal.Migrations
 
             modelBuilder.Entity("projeto_final.Models.Produto", b =>
                 {
-                    b.Property<int>("Id");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("CategoriaId");
 
@@ -368,9 +369,6 @@ namespace projetofinal.Migrations
                         .HasMaxLength(50);
 
                     b.Property<double>("Preco");
-
-                    b.Property<string>("Thumb")
-                        .IsRequired();
 
                     b.HasKey("Id");
 

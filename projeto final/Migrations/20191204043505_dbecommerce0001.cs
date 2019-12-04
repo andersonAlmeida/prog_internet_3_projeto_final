@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace projetofinal.Migrations
 {
-    public partial class dbMigration0001 : Migration
+    public partial class dbecommerce0001 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -120,7 +120,7 @@ namespace projetofinal.Migrations
                     Titulo = table.Column<string>(nullable: true),
                     Descricao = table.Column<string>(nullable: true),
                     Imagem_Thumb = table.Column<string>(nullable: true),
-                    Imagem_Normal = table.Column<string>(nullable: false),
+                    Imagem_Normal = table.Column<string>(nullable: true),
                     Id_Produto = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -283,7 +283,8 @@ namespace projetofinal.Migrations
                 name: "Produto",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Preco = table.Column<double>(nullable: false),
                     Nome = table.Column<string>(maxLength: 50, nullable: true),
                     Descricao = table.Column<string>(maxLength: 500, nullable: true),
@@ -291,7 +292,6 @@ namespace projetofinal.Migrations
                     Estoque = table.Column<int>(nullable: false),
                     CategoriaId = table.Column<int>(nullable: false),
                     MarcaId = table.Column<int>(nullable: false),
-                    Thumb = table.Column<string>(nullable: false),
                     ImagemId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
