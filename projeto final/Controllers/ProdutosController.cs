@@ -17,6 +17,7 @@ using projeto_final.Services;
 
 namespace projeto_final.Controllers
 {
+    //[Area("admin")]
     [Authorize]
     public class ProdutosController : Controller
     {
