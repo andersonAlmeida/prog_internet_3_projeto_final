@@ -40,10 +40,10 @@ namespace projeto_final.Models
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int MarcaId { get; set; }
         public virtual Marca Marca { get; set; }
-        
-        //[Required(ErrorMessage = "Selecione uma imagem.")]
-        //[DataType(DataType.Upload)]
-        //public string Thumb { get; set; }
+
+        [Required(ErrorMessage = "Selecione uma imagem.")]
+        [DataType(DataType.Upload)]
+        public string Thumb { get; set; }
 
         public List<ProdutoPedido> PP { get; set; }
 

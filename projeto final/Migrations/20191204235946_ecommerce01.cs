@@ -292,6 +292,7 @@ namespace projetofinal.Migrations
                     Estoque = table.Column<int>(nullable: false),
                     CategoriaId = table.Column<int>(nullable: false),
                     MarcaId = table.Column<int>(nullable: false),
+                    Thumb = table.Column<string>(nullable: false),
                     ImagemId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>

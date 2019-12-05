@@ -10,7 +10,7 @@ using projeto_final.Data;
 namespace projetofinal.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20191204224306_ecommerce01")]
+    [Migration("20191204235946_ecommerce01")]
     partial class ecommerce01
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -369,6 +369,9 @@ namespace projetofinal.Migrations
                         .HasMaxLength(50);
 
                     b.Property<double>("Preco");
+
+                    b.Property<string>("Thumb")
+                        .IsRequired();
 
                     b.HasKey("Id");
 

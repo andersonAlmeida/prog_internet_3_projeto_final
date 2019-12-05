@@ -19,11 +19,11 @@
                 <input asp-for="Produto.Nome" class="form-control" />
                 <span asp-validation-for="Produto.Nome" class="text-danger"></span>
             </div>
-            @*<div class="form-group">
+            <div class="form-group">
                 <label asp-for="Produto.Thumb" class="control-label"></label>
-                <input asp-for="Produto.Thumb" class="form-control" type="file" />
+                <input asp-for="Produto.Thumb" class="form-control" name="arquivos" type="file" />
                 <span asp-validation-for="Produto.Thumb" class="text-danger"></span>
-            </div>*@
+            </div>
             <div class="form-group">
                 <label asp-for="Produto.CategoriaId" class="control-label"></label>
                 <select asp-for="Produto.CategoriaId"

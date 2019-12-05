@@ -368,6 +368,9 @@ namespace projetofinal.Migrations
 
                     b.Property<double>("Preco");
 
+                    b.Property<string>("Thumb")
+                        .IsRequired();
+
                     b.HasKey("Id");
 
                     b.HasIndex("CategoriaId");
