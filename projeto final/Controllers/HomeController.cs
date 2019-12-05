@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using projeto_final.Models;
 using projeto_final.Models.ViewModels;
@@ -13,10 +14,12 @@ namespace projeto_final.Controllers
     public class HomeController : Controller
     {
         private readonly ProdutoService _produtoService;
+        IHostingEnvironment _appEnvironment;
 
-        public HomeController(ProdutoService produtoService)
+        public HomeController(ProdutoService produtoService, IHostingEnvironment env)
         {
             _produtoService = produtoService;
+            _appEnvironment = env;
         }
 
         public IActionResult Index()
@@ -24,7 +27,8 @@ namespace projeto_final.Controllers
             var produtos = _produtoService.FindAll();
             var viewModel = new HomeViewModel
             {
-                Produtos = produtos
+                Produtos = produtos,
+                Uploads = _appEnvironment.WebRootPath + "\\images\\uploads\\"
             };
             return View(viewModel);
         }
