@@ -65,3 +65,14 @@ body {
 #product-list .buy {
     width: 100%;
 }
+
+#product-list .thumbnail img {
+    height: 200px;
+    width: auto;
+}
+
+/* Detalhe produto */
+#produto-detalhes .img-thumbnail {
+    max-width: 150px;
+}
+

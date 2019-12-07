@@ -6,10 +6,16 @@
 
 <h2>Details</h2>
 
-<div>
+<div id="produto-detalhes">
     <h4>Produto</h4>
     <hr />
     <dl class="dl-horizontal">
+        <dt>
+            Imagem
+        </dt>
+        <dd>
+            <img class="img-thumbnail" src="~/images/uploads/@Html.DisplayFor(model => model.Thumb)" />
+        </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Nome)
         </dt>

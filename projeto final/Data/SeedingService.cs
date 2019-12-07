@@ -1,4 +1,5 @@
 ﻿using projeto_final.Models;
+using projeto_final.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,9 +40,9 @@ namespace projeto_final.Data
             Marca m5 = new Marca("Lego");
 
             // Produtos
-            //Produto p1 = new Produto(5000.50, "Iphone", "Bem caro", 0, 1020, c1, m1, null);
-            //Produto p2 = new Produto(350.80, "Adidas Superstar", "Bom tênis", 0, 3000, c3, m3, null);
-            //Produto p3 = new Produto(1500.50, "Star Wars", "Maneiro", 0, 350, c5, m5, null);
+            //Produto p1 = new Produto (5000.50, "Iphone", "Bem caro", 0, 1020, c1, m1, "iphone.webp");
+            //Produto p2 = new Produto(350.80, "Adidas Superstar", "Bom tênis", 0, 3000, c3, m3, "adidas.jpg");
+            //Produto p3 = new Produto(1500.50, "Star Wars", "Maneiro", 0, 350, c5, m5, "starwars.jpg");
 
             // Adiciona no banco
             _context.Categoria.AddRange(c1, c2, c3, c4, c5);

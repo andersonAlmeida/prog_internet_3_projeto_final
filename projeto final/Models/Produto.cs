@@ -41,7 +41,7 @@ namespace projeto_final.Models
         public int MarcaId { get; set; }
         public virtual Marca Marca { get; set; }
 
-        [Required(ErrorMessage = "Selecione uma imagem.")]
+        //[Required(ErrorMessage = "Selecione uma imagem.")]
         [DataType(DataType.Upload)]
         public string Thumb { get; set; }
 
@@ -49,6 +49,18 @@ namespace projeto_final.Models
 
         public Produto()
         {
+        }
+
+        public Produto(double preco, string nome, string descricao, double desconto, int estoque, Categoria categoria, Marca marca, string thumb)
+        {
+            Preco = preco;
+            Nome = nome;
+            Descricao = descricao;
+            Desconto = desconto;
+            Estoque = estoque;
+            Categoria = categoria;
+            Marca = marca;
+            Thumb = thumb;
         }
 
         public Produto(double preco, string nome, string descricao, double desconto, int estoque, int categoriaId, Categoria categoria, int marcaId, Marca marca, /*string imagem,*/ List<ProdutoPedido> pP)
