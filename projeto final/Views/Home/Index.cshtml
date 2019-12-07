@@ -36,7 +36,14 @@
     {
         <div class="col-sm-3">
             <div class="thumbnail">
-                <img src="~/images/uploads/@Html.DisplayFor(modelItem => produto.Thumb)" alt="Imagem produto">
+                @if (produto.Thumb != null)
+                {
+                    <img src="~/images/uploads/@Html.DisplayFor(modelItem => produto.Thumb)" alt="Imagem produto">
+                }
+                else
+                {
+                    <img src="https://www.placecage.com/230/250" alt="Imagem produto">
+                }
                 <div class="caption">
                     <h3>@Html.DisplayFor(modelItem => produto.Nome)</h3>
                     <p>
