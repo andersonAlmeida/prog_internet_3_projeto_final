@@ -15,6 +15,8 @@ using Microsoft.Extensions.DependencyInjection;
 using projeto_final.Models;
 using projeto_final.Services;
 using System.Globalization;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Authorization;
 
 namespace projeto_final
 {
@@ -41,10 +43,19 @@ namespace projeto_final
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddDefaultIdentity<IdentityUser>()
+            services.AddDefaultIdentity<IdentityUser>().AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc(config =>
+            {
+                // using Microsoft.AspNetCore.Mvc.Authorization;
+                // using Microsoft.AspNetCore.Authorization;
+                var policy = new AuthorizationPolicyBuilder()
+                                 .RequireAuthenticatedUser()
+                                 .Build();
+                config.Filters.Add(new AuthorizeFilter(policy));
+            })
+            .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             services.AddScoped<CategoriaService>();
             services.AddScoped<MarcaService>();
@@ -88,6 +99,10 @@ namespace projeto_final
 
             app.UseMvc(routes =>
             {
+                routes.MapRoute(
+                    name: "admin_route",
+                    template: "{area:exists}/{controller=Produtos}/{action=Index}/{id?}");
+
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");

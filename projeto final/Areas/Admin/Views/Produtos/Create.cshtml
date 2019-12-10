@@ -1,0 +1,78 @@
+﻿@model projeto_final.Models.ViewModels.ProdutoFormViewModel
+
+@{
+    ViewData["Title"] = "Criar";
+    // cria as listas dos selects
+    var listCategorias = new SelectList(Model.Categorias, "CategoriaId", "Nome");
+    var listMarcas = new SelectList(Model.Marcas, "MarcaId", "Nome");
+}
+<h2>Criar</h2>
+
+<h4>Produto</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Produto.Nome" class="control-label"></label>
+                <input asp-for="Produto.Nome" class="form-control" />
+                <span asp-validation-for="Produto.Nome" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Produto.Thumb" class="control-label"></label>
+                <input asp-for="Produto.Thumb" class="form-control" name="arquivos" type="file" />
+                <span asp-validation-for="Produto.Thumb" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Produto.CategoriaId" class="control-label"></label>
+                <select asp-for="Produto.CategoriaId"
+                        asp-items="@(listCategorias)"
+                        class="form-control">
+                    <option value="">Selecione</option>
+                </select>
+                <span asp-validation-for="Produto.CategoriaId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Produto.MarcaId" class="control-label"></label>
+                <select asp-for="Produto.MarcaId"
+                        asp-items="@(listMarcas)"
+                        class="form-control">
+                    <option value="">Selecione</option>
+                </select>
+                <span asp-validation-for="Produto.MarcaId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Produto.Preco" class="control-label"></label>
+                <input asp-for="Produto.Preco" class="form-control" />
+                <span asp-validation-for="Produto.Preco" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Produto.Descricao" class="control-label"></label>
+                <textarea asp-for="Produto.Descricao" class="form-control"></textarea>
+                <span asp-validation-for="Produto.Descricao" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Produto.Desconto" class="control-label"></label>
+                <input asp-for="Produto.Desconto" class="form-control" />
+                <span asp-validation-for="Produto.Desconto" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Produto.Estoque" class="control-label"></label>
+                <input asp-for="Produto.Estoque" class="form-control" />
+                <span asp-validation-for="Produto.Estoque" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Salvar" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Voltar para a listagem</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

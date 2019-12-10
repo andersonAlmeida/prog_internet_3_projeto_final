@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using projeto_final.Models;
@@ -11,6 +12,7 @@ using projeto_final.Services;
 
 namespace projeto_final.Controllers
 {
+    [AllowAnonymous]
     public class HomeController : Controller
     {
         private readonly ProdutoService _produtoService;
