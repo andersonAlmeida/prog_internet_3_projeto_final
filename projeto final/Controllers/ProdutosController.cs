@@ -175,7 +175,7 @@ namespace projeto_final.Controllers
                 foreach (var arquivo in arquivos)
                 {
                     // se tem uma imagem relacionada
-                    if (thumb != "")
+                    if (!String.IsNullOrEmpty(thumb))
                     {
                         string sourceDir = _appEnvironment.WebRootPath + "//images//uploads//";
 
