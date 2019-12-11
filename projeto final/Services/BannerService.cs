@@ -8,19 +8,18 @@ using System.Threading.Tasks;
 
 namespace projeto_final.Services
 {
-    public class HomeService
+    public class BannerService
     {
         private readonly ApplicationDbContext _context;
 
-        public HomeService(ApplicationDbContext context)
+        public BannerService(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        public List<Produto> FindAll()
+        public List<Banner> FindAll()
         {
-            // retorna todos os produtos ordenados por nome
-            return _context.Produto.Include(p => p.Categoria).Include(p => p.Marca).OrderBy(d => d.Nome).ToList();
+            return _context.Banner.Where(b => b.Ativo == 1).ToList();
         }
     }
 }

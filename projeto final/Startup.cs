@@ -60,7 +60,7 @@ namespace projeto_final
             services.AddScoped<CategoriaService>();
             services.AddScoped<MarcaService>();
             services.AddScoped<ProdutoService>();
-            //services.AddScoped<HomeService>();
+            services.AddScoped<BannerService>();
 
             services.AddScoped<SeedingService>();
         }

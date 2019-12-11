@@ -23,5 +23,6 @@ namespace projeto_final.Data
         public DbSet<projeto_final.Models.Pedido> Pedido { get; set; }
         public DbSet<projeto_final.Models.Produto> Produto { get; set; }
         public DbSet<projeto_final.Models.Telefone> Telefone { get; set; }
+        public DbSet<projeto_final.Models.Banner> Banner { get; set; }
     }
 }

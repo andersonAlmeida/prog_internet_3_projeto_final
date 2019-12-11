@@ -16,21 +16,25 @@ namespace projeto_final.Controllers
     public class HomeController : Controller
     {
         private readonly ProdutoService _produtoService;
+        private readonly BannerService _bannerService;
         IHostingEnvironment _appEnvironment;
 
-        public HomeController(ProdutoService produtoService, IHostingEnvironment env)
+        public HomeController(ProdutoService produtoService, IHostingEnvironment env, BannerService bannerService)
         {
             _produtoService = produtoService;
+            _bannerService = bannerService;
             _appEnvironment = env;
         }
 
         public IActionResult Index()
         {
             var produtos = _produtoService.FindAll();
+            var banners = _bannerService.FindAll();
             var viewModel = new HomeViewModel
             {
                 Produtos = produtos,
-                Uploads = _appEnvironment.WebRootPath + "\\images\\uploads\\"
+                Uploads = _appEnvironment.WebRootPath + "\\images\\uploads\\",
+                Banners = banners
             };
             return View(viewModel);
         }
